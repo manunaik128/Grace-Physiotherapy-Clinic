@@ -104,8 +104,15 @@ export function AdminPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-14 md:py-20">
         <div className="rounded-2xl bg-white border border-[#252B29]/10 p-6 md:p-8 space-y-5">
-          <div className="w-11 h-11 rounded-xl bg-[#EBF2EC] text-[#174D3B] flex items-center justify-center">
-            <Lock className="w-5 h-5" aria-hidden="true" />
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo.jpg"
+              alt="Grace Physiotherapy Clinic logo"
+              className="w-12 h-12 rounded-full object-cover border border-[#174D3B]/15 bg-white shrink-0"
+            />
+            <div className="w-9 h-9 rounded-xl bg-[#EBF2EC] text-[#174D3B] flex items-center justify-center shrink-0">
+              <Lock className="w-4 h-4" aria-hidden="true" />
+            </div>
           </div>
 
           <div>
@@ -216,13 +223,20 @@ export function AdminPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Admin Top Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#252B29]/10">
-        <div>
-          <p className="text-xs text-[#252B29]/60">
-            Grace Physiotherapy Clinic / Operations Console
-          </p>
-          <h1 className="mt-1 font-display text-2xl font-bold text-[#252B29]">
-            Clinic Management Dashboard
-          </h1>
+        <div className="flex items-center gap-3.5">
+          <img
+            src="/logo.jpg"
+            alt="Grace Physiotherapy Clinic logo"
+            className="w-11 h-11 rounded-full object-cover border border-[#174D3B]/15 bg-white shrink-0"
+          />
+          <div>
+            <p className="text-xs text-[#252B29]/60">
+              Grace Physiotherapy Clinic / Operations Console
+            </p>
+            <h1 className="mt-1 font-display text-2xl font-bold text-[#252B29]">
+              Clinic Management Dashboard
+            </h1>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right text-xs">

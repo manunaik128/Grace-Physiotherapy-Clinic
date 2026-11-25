@@ -61,13 +61,18 @@ export function Layout({
       {/* Top Navigation Bar — Strict 3-Zone Contract */}
       <header className="sticky top-0 z-40 bg-[#FAFAF6]/95 backdrop-blur-md border-b border-[#252B29]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 md:h-16 flex items-center justify-between gap-8">
-          {/* Zone 1: Single-line Brand Wordmark */}
+          {/* Zone 1: Clinic Logo & Single-line Brand Wordmark */}
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-display text-lg md:text-xl font-bold tracking-tight text-[#174D3B] whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#174D3B]"
+            className="flex items-center gap-2.5 font-display text-lg md:text-xl font-bold tracking-tight text-[#174D3B] whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#174D3B]"
           >
-            Grace Physiotherapy
+            <img
+              src="/logo.jpg"
+              alt="Grace Physiotherapy Clinic logo"
+              className="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover border border-[#174D3B]/15 bg-white shrink-0"
+            />
+            <span>Grace Physiotherapy</span>
           </Link>
 
           {/* Zone 2: 5 concise single-line nav links */}
@@ -227,9 +232,16 @@ export function Layout({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/15">
               {/* Column 1: Clinic Info */}
               <div>
-                <h2 className="font-display text-xl font-bold text-white tracking-tight">
-                  {settings?.business_name || 'Grace Physiotherapy Clinic'}
-                </h2>
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/logo.jpg"
+                    alt="Grace Physiotherapy Clinic logo"
+                    className="w-12 h-12 rounded-full object-cover bg-white p-0.5 shrink-0"
+                  />
+                  <h2 className="font-display text-xl font-bold text-white tracking-tight">
+                    {settings?.business_name || 'Grace Physiotherapy Clinic'}
+                  </h2>
+                </div>
                 <p className="mt-3 text-sm text-[#FAFAF6]/80 leading-relaxed">
                   {settings?.tagline ||
                     'Personalized physiotherapy and rehabilitation care in JP Nagar 5th Phase, Bengaluru.'}
