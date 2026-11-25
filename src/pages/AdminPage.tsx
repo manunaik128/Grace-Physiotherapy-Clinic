@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Calendar, Clock, Database, FileText, Lock, LogOut, Shield, Stethoscope } from 'lucide-react';
 import { useClinic } from '../context/ClinicContext';
 import { AdminAppointmentsPanel } from '../components/admin/AdminAppointmentsPanel';
@@ -208,13 +207,6 @@ export function AdminPage() {
               </button>
             </form>
           )}
-
-          <div className="pt-4 border-t border-[#252B29]/10 text-xs text-[#252B29]/70 flex items-center justify-between gap-2">
-            <span>Are you a patient?</span>
-            <Link to="/login" className="font-semibold text-[#174D3B] hover:underline">
-              Go to Patient Login
-            </Link>
-          </div>
         </div>
       </div>
     );

@@ -4,7 +4,6 @@ import type {
   BlockedDate,
   ClinicSettings,
   GalleryImage,
-  PatientProfile,
   Service,
   TeamMember,
   Testimonial,
@@ -32,10 +31,6 @@ interface ClinicContextValue {
   adminUser: AdminProfile | null;
   setAdminSession: (token: string, user: AdminProfile) => void;
   clearAdminSession: () => void;
-  patientToken: string | null;
-  patientUser: PatientProfile | null;
-  setPatientSession: (token: string, user: PatientProfile) => void;
-  clearPatientSession: () => void;
 }
 
 const ClinicContext = createContext<ClinicContextValue | undefined>(undefined);
@@ -45,11 +40,9 @@ export function ClinicProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Admin & Patient Bearer tokens are held strictly in React memory (never localStorage/sessionStorage)
+  // Admin Bearer token is held strictly in React memory (never localStorage/sessionStorage)
   const [adminToken, setAdminToken] = useState<string | null>(null);
   const [adminUser, setAdminUser] = useState<AdminProfile | null>(null);
-  const [patientToken, setPatientToken] = useState<string | null>(null);
-  const [patientUser, setPatientUser] = useState<PatientProfile | null>(null);
 
   const refreshClinicData = useCallback(async () => {
     try {
@@ -81,16 +74,6 @@ export function ClinicProvider({ children }: { children: React.ReactNode }) {
     setAdminUser(null);
   }, []);
 
-  const setPatientSession = useCallback((token: string, user: PatientProfile) => {
-    setPatientToken(token);
-    setPatientUser(user);
-  }, []);
-
-  const clearPatientSession = useCallback(() => {
-    setPatientToken(null);
-    setPatientUser(null);
-  }, []);
-
   return (
     <ClinicContext.Provider
       value={{
@@ -102,10 +85,6 @@ export function ClinicProvider({ children }: { children: React.ReactNode }) {
         adminUser,
         setAdminSession,
         clearAdminSession,
-        patientToken,
-        patientUser,
-        setPatientSession,
-        clearPatientSession,
       }}
     >
       {children}

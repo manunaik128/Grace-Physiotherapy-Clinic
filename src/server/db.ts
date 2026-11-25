@@ -176,18 +176,6 @@ function initializeSchema(db: DatabaseSync): void {
       status TEXT NOT NULL DEFAULT 'new',
       created_at TEXT NOT NULL
     );
-
-    CREATE TABLE IF NOT EXISTS patient_accounts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      patient_id INTEGER NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
-      full_name TEXT NOT NULL,
-      phone TEXT NOT NULL,
-      phone_last10 TEXT NOT NULL UNIQUE,
-      email TEXT NOT NULL DEFAULT '',
-      password_hash TEXT NOT NULL,
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
   `);
 
   const appointmentCols = db

@@ -194,27 +194,3 @@ export interface SupabaseStatusResponse {
   unsyncedCount: number;
   schemaSql: string;
 }
-
-export interface PatientProfile {
-  accountId: number;
-  patientId: number;
-  name: string;
-  phone: string;
-  email: string;
-}
-
-export interface PatientAppointment {
-  id: number;
-  referenceCode: string;
-  appointmentDate: string;
-  startTime: string;
-  endTime: string;
-  startTimeLabel: string;
-  endTimeLabel: string;
-  status: AppointmentStatus;
-  serviceId: number;
-  serviceName: string;
-  durationMinutes: number;
-  notes: string;
-  updatedAt: string;
-}

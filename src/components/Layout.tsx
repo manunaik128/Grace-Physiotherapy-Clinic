@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, MessageCircle, X, Phone, MapPin, Clock, ArrowUpRight, Lock, User } from 'lucide-react';
+import { Menu, MessageCircle, X, Phone, MapPin, Clock, ArrowUpRight, Lock } from 'lucide-react';
 import { useClinic } from '../context/ClinicContext';
 import { getDirectionsUrl, getWhatsAppUrl } from './ClinicMap';
 
@@ -11,7 +11,7 @@ export function Layout({
   children: React.ReactNode;
   quotaExceeded: boolean;
 }) {
-  const { data, adminToken, patientUser } = useClinic();
+  const { data, adminToken } = useClinic();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -121,20 +121,8 @@ export function Layout({
             </NavLink>
           </nav>
 
-          {/* Zone 3: Login, Admin Login, Primary Book Action + Mobile Menu Trigger */}
+          {/* Zone 3: Admin Login, Primary Book Action + Mobile Menu Trigger */}
           <div className="flex items-center gap-2 shrink-0">
-            <Link
-              to={patientUser ? '/portal' : '/login'}
-              className={`hidden sm:inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs md:text-sm font-semibold transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#174D3B] ${
-                location.pathname === '/login' || location.pathname === '/portal'
-                  ? 'border-[#174D3B] bg-[#EBF2EC] text-[#174D3B]'
-                  : 'border-[#252B29]/15 bg-white text-[#252B29] hover:border-[#174D3B]/40 hover:bg-[#EBF2EC]/60 hover:text-[#174D3B]'
-              }`}
-            >
-              <User className="w-3.5 h-3.5 text-[#174D3B]" aria-hidden="true" />
-              <span>{patientUser ? 'My Bookings' : 'Login'}</span>
-            </Link>
-
             <Link
               to="/admin"
               className={`hidden md:inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs md:text-sm font-semibold transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#174D3B] ${
@@ -210,14 +198,6 @@ export function Layout({
               className="block px-3 py-2.5 rounded-xl text-sm font-medium text-[#252B29] hover:bg-[#EBF2EC]"
             >
               Contact
-            </Link>
-            <Link
-              to={patientUser ? '/portal' : '/login'}
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-[#174D3B] hover:bg-[#EBF2EC]"
-            >
-              <User className="w-4 h-4" aria-hidden="true" />
-              {patientUser ? 'My Bookings Portal' : 'Patient Login'}
             </Link>
             <Link
               to="/admin"

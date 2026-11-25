@@ -8,8 +8,6 @@ import { ServicesPage } from './pages/ServicesPage';
 import { BookPage } from './pages/BookPage';
 import { ContactPage } from './pages/ContactPage';
 import { AdminPage } from './pages/AdminPage';
-import { LoginPage } from './pages/LoginPage';
-import { PatientPortalPage } from './pages/PatientPortalPage';
 import { PrivacyPolicyPage, TermsPage } from './pages/LegalPages';
 
 function ScrollToTop() {
@@ -39,8 +37,6 @@ export default function App() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/book" element={<BookPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/portal" element={<PatientPortalPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsPage />} />

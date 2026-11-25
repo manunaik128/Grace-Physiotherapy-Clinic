@@ -81,63 +81,6 @@ export function verifyAdminToken(token: string): AdminSessionPayload | null {
   }
 }
 
-export interface PatientSessionPayload {
-  kind: 'patient';
-  accountId: number;
-  patientId: number;
-  name: string;
-  phone: string;
-  phoneLast10: string;
-  email: string;
-  exp: number;
-}
-
-export function signPatientToken(payload: Omit<PatientSessionPayload, 'exp' | 'kind'>): string {
-  const fullPayload: PatientSessionPayload = {
-    kind: 'patient',
-    ...payload,
-    exp: Date.now() + 24 * 60 * 60 * 1000,
-  };
-  const encoded = Buffer.from(JSON.stringify(fullPayload), 'utf8').toString('base64url');
-  const sig = crypto
-    .createHmac('sha256', getSessionSecret())
-    .update(encoded)
-    .digest('base64url');
-  return `${encoded}.${sig}`;
-}
-
-export function verifyPatientToken(token: string): PatientSessionPayload | null {
-  const parts = token.split('.');
-  if (parts.length !== 2) return null;
-  const [encoded, sig] = parts;
-  if (!encoded || !sig) return null;
-  const expectedSig = crypto
-    .createHmac('sha256', getSessionSecret())
-    .update(encoded)
-    .digest('base64url');
-  const sigBuf = Buffer.from(sig);
-  const expectedBuf = Buffer.from(expectedSig);
-  if (sigBuf.length !== expectedBuf.length) return null;
-  if (!crypto.timingSafeEqual(sigBuf, expectedBuf)) return null;
-
-  try {
-    const parsed = JSON.parse(
-      Buffer.from(encoded, 'base64url').toString('utf8')
-    ) as PatientSessionPayload;
-    if (
-      !parsed ||
-      parsed.kind !== 'patient' ||
-      typeof parsed.exp !== 'number' ||
-      parsed.exp < Date.now()
-    ) {
-      return null;
-    }
-    return parsed;
-  } catch {
-    return null;
-  }
-}
-
 export function isEnvPasscodeConfigured(): boolean {
   const p = process.env.ADMIN_PASSCODE?.trim();
   return Boolean(p && p.length > 0);
@@ -162,10 +105,6 @@ export interface AuthenticatedAdminRequest extends Request {
   admin?: AdminSessionPayload;
 }
 
-export interface AuthenticatedPatientRequest extends Request {
-  patient?: PatientSessionPayload;
-}
-
 export function requireAdmin(
   req: AuthenticatedAdminRequest,
   res: Response,
@@ -183,26 +122,6 @@ export function requireAdmin(
     return;
   }
   req.admin = payload;
-  next();
-}
-
-export function requirePatient(
-  req: AuthenticatedPatientRequest,
-  res: Response,
-  next: NextFunction
-): void {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ error: 'Patient authentication required.' });
-    return;
-  }
-  const token = authHeader.slice('Bearer '.length).trim();
-  const payload = verifyPatientToken(token);
-  if (!payload) {
-    res.status(401).json({ error: 'Session expired or invalid. Please sign in again.' });
-    return;
-  }
-  req.patient = payload;
   next();
 }
 

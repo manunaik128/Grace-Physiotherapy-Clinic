@@ -100,7 +100,7 @@ interface LookupResult {
 }
 
 export function BookPage() {
-  const { data, patientUser } = useClinic();
+  const { data } = useClinic();
   const [searchParams] = useSearchParams();
 
   const services = data?.services || [];
@@ -145,14 +145,6 @@ export function BookPage() {
   const [rescheduleSlots, setRescheduleSlots] = useState<TimeSlot[]>([]);
   const [rescheduleTime, setRescheduleTime] = useState('');
   const [manageMsg, setManageMsg] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (patientUser) {
-      setFullName((prev) => prev || patientUser.name);
-      setPhone((prev) => prev || patientUser.phone);
-      setEmail((prev) => prev || patientUser.email || '');
-    }
-  }, [patientUser]);
 
   // Preselect service from ?service=slug
   useEffect(() => {
