@@ -1,0 +1,8 @@
+{
+  "name": "Grace Physiotherapy Clinic",
+  "description": "Personalized physiotherapy, spine rehabilitation, joint pain care, and online appointment booking in JP Nagar, Bengaluru.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
